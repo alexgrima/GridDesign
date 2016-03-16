@@ -3,6 +3,7 @@ class Freestream(object):
     design estimations to be made for a freestream case.
     """
 
+    # Initialisation of the class
     def __init__(self):
         """Initialises the class setting all fields to 0 and
         all internat variabels to None.
@@ -11,28 +12,36 @@ class Freestream(object):
         still recieve a value through calculations.
         """
         # Field variabels
-        _velocity = None          # Velocity [Lunit/Tunit]
-        _velocity_ = None         # Internal
-        _flow_distance = None     # Distance of flow travel [Lunit]
-        _flow_distance_ = None    # Internal
+        self._velocity = None          # Velocity [Lunit/Tunit]
+        self._velocity_ = None         # Internal
+        self._flow_distance = None     # Distance of flow travel [Lunit]
+        self._flow_distance_ = None    # Internal
 
         # Time variabels
-        _delta_t = None          # Time delta [Tunit]
-        _delta_t_ = None         # Internal
-        _time_interval = None    # Simulation time interval [Tunit]
-        _time_interval_ = None   # Internal
-        _time_steps = None       # Number of steps in interval []
-        _time_steps_ = None      # Internal
+        self._delta_t = None          # Time delta [Tunit]
+        self._delta_t_ = None         # Internal
+        self._time_interval = None    # Simulation time interval [Tunit]
+        self._time_interval_ = None   # Internal
+        self._time_steps = None       # Number of steps in interval []
+        self._time_steps_ = None      # Internal
 
         # Grid variabels
-        _delta_x = None          # Distance delta [Lunit]
-        _delta_x_ = None         # Internal
-        _reference_length = None # Reference length [Lunit]
-        _reference_length_ = None# Internal
-        _number_of_nodes = None  # Nummber of nodes along reference []
-        _number_of_nodes_ = None # Internal
-
+        self._delta_x = None          # Distance delta [Lunit]
+        self._delta_x_ = None         # Internal
+        self._reference_length = None # Reference length [Lunit]
+        self._reference_length_ = None# Internal
+        self._number_of_nodes = None  # Num nodes along reference []
+        self._number_of_nodes_ = None # Internal
 
         return super(Freestream, self).__init__()
 
+    # Velocity set::get
+    def set_velocity(self, velocity):
+        self._velocity = velocity
 
+    def get_velocity(self):
+        return self._velocity_
+
+    # Flow distance set::get
+    def set_flow_distance(self, flow_distance):
+        self._flow_distance = flow_distance
