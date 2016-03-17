@@ -77,4 +77,47 @@ class Freestream(object):
     # Calculate ref_length from delta_x and number of nodes
 
     # number_of_nodes
-    # Calculate number_of_nodes from delta_X and reference length 
+    # Calculate number_of_nodes from delta_X and reference length
+
+    """Actual workings.
+    """
+    # Reset all internal values for recalculation
+    def _reset_internal_values(self):
+        self._velocity = None
+        self._flow_distance = None
+        self._delta_t = None
+        self._time_interval = None
+        self._time_steps = None
+        self._delta_x = None
+        self._reference_length = None
+        self._number_of_nodes = None
+
+    # Check if any variable is None
+    def _is_any_None(self):
+        if not self._velocity:
+            return True
+        elif not self._flow_distance:
+            return True
+        elif not self._delta_t:
+            return True
+        elif not self._time_interval:
+            return True
+        elif not self._time_steps:
+            return True
+        elif not self._delta_x:
+            return True
+        elif not self._reference_length:
+            return True
+        elif not self._number_of_nodes:
+            return True
+        else:
+            return False
+
+    # Recurring function that calculates all possible values
+    def _inteli_calc(self):
+        # Make calculations
+
+        # After updating a value the function must be called again
+
+        # If we get to the end then all possible values must have been calculated
+        pass
