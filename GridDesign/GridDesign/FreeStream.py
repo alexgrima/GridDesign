@@ -4,39 +4,178 @@ class Freestream(object):
     """
 
     # Initialisation of the class
-    def __init__(self):
+    def _init_(self):
         """Initialises the class setting all fields to 0 and
         all internat variabels to None.
         Internal variabel is always updated to field value and used in
         calculations. If field value is None the internal value can 
         still recieve a value through calculations.
         """
-        # Ratio setting
-        self.ratio = 0.9            # Ratio value for V*t/x < 1
+        # _ratio setting
+        self._ratio = 0.9            # _ratio value for V*t/x < 1
 
         # Field variabels
-        self.velocity = None          # Velocity [Lunit/Tunit]
-        self._velocity = None         # Internal
-        self.flow_distance = None     # Distance of flow travel [Lunit]
-        self._flow_distance = None    # Internal
+        self._velocity = None          # Velocity [Lunit/Tunit]
+        self._velocity_ = None         # Internal
+        self._flow_distance = None     # Distance of flow travel [Lunit]
+        self._flow_distance_ = None    # Internal
 
         # Time variabels
-        self.delta_t = None          # Time delta [Tunit]
-        self._delta_t = None         # Internal
-        self.time_interval = None    # Simulation time interval [Tunit]
-        self._time_interval = None   # Internal
-        self.time_steps = None       # Number of steps in interval []
-        self._time_steps = None      # Internal
+        self._delta_t = None          # Time delta [Tunit]
+        self._delta_t_ = None         # Internal
+        self._time_interval = None    # Simulation time interval [Tunit]
+        self._time_interval_ = None   # Internal
+        self._time_steps = None       # Number of steps in interval []
+        self._time_steps_ = None      # Internal
 
         # Grid variabels
-        self.delta_x = None          # Distance delta [Lunit]
-        self._delta_x = None         # Internal
-        self.reference_length = None # Reference length [Lunit]
-        self._reference_length = None# Internal
-        self.number_of_nodes = None  # Num nodes along reference []
-        self._number_of_nodes = None # Internal
+        self._delta_x = None          # Distance delta [Lunit]
+        self._delta_x_ = None         # Internal
+        self._reference_length = None # Reference length [Lunit]
+        self._reference_length_ = None# Internal
+        self._number_of_nodes = None  # Num nodes along reference []
+        self._number_of_nodes_ = None # Internal
 
-        return super(Freestream, self).__init__()
+        return super(Freestream, self)._init_()
+
+    """Define all setters and getters to make updating values easier.
+    """
+    # velocity
+    def set_velocity(self, velocity, internal=False):
+        self._velocity_ = velocity
+        if internal is False:
+            self._velocity = self._velocity_
+
+    def get_velocity_(self):
+        return self._velocity_
+    
+    # flow_distance
+    def set_flow_distance(self, flow_distance, internal=False):
+        self._flow_distance_ = flow_distance
+        if internal is False:
+            self._flow_distance = self._flow_distance_
+
+    def get_flow_distance(self):
+        return self._flow_distance_
+
+    # delta_t
+    def set_delta_t(self, delta_t, internal=False):
+        self._delta_t_ = delta_t
+        if internal is False:
+            self._delta_t = self._delta_t_
+
+    def get_delta_t(self):
+        return self._delta_t_
+
+    # time_interval
+    def set_time_interval(self, time_interval, internal=False):
+        self._time_interval_ = time_interval
+        if internal is False:
+            self._time_interval = self._time_interval_
+
+    def get_time_interval(self):
+        return self._time_interval_
+
+    # time_steps
+    def set_time_steps(self, time_steps, internal=False):
+        self._time_steps_ = time_steps
+        if internal is False:
+            self._time_steps = self._time_steps_
+
+    def get_time_steps(self):
+        return self._time_steps_
+
+    # delta_x
+    def set_delta_x(self, delta_x, internal=False):
+        self._delta_x_ = delta_x
+        if internal is False:
+            self._delta_x = self._delta_x_
+
+    def get_delta_x(self):
+        return self._delta_x_
+
+    # reference_length
+    def set_reference_length(self, reference_length, internal=False):
+        self._reference_length_ = reference_length
+        if internal is False:
+            self._reference_length = self._reference_length_
+
+    def get_reference_length(self):
+        return self._reference_length_
+
+    # number_of_nodes
+    def set_number_of_nodes(self, number_of_nodes, internal=False):
+        self._number_of_nodes_ = number_of_nodes
+        if internal is False:
+            self._number_of_nodes = self._number_of_nodes_
+
+    def get_number_of_nodes(self):
+        return self._number_of_nodes_
+
+    """Functions caled when value is updated to update all possible
+    resulting value changes.
+    """
+    # velocity
+    def _velocity_updated(self):
+        # delta_t from delta_x
+        if self._delta_x_ and not self._delta_t_:
+            self.set_delta_t(self._calc_delta_t_from_velocity_(), True)
+        # delta_x from delta_t
+        elif self._delta_t_ and not self._delta_x_:
+            self.set_delta_x(self._calc_delta_x_from_velocity_(), True)
+        # flow_distance from time_interval
+        elif self._flow_distance_ and not self._time_interval_:
+            self.set_time_interval(self._calc_time_from_flow_distance_(), True)
+        # time_interval from flow_distance
+        elif self._time_interval_ and not self._flow_distance_:
+            self.set_flow_distance(self._calc_flow_distance_from_velocity(), True)
+
+    # flow_distance
+    def _flow_distance_update(self):
+        # time_interval from velocity
+        if self._velocity_ and not self._time_interval_:
+            self.set_time_interval(self._calc_time_from_flow_distance_(), True)
+        # velocity from time_interval
+        elif self._time_interval_ and not self._velocity_:
+            self.set_velocity(self._calc_velocity_from_distance(), True)
+
+    # delta_t
+    def _delta_t_updated(self):
+        # velocity from delta_x
+        if self._delta_x_ and not self._velocity_:            
+            self.set_velocity(self._calc_velocity_from_deltas(), True)
+        # delta_x from velocity
+        elif self._velocity_ and not self._delta_x_:
+            self.set_delta_x(self._calc_delta_x_from_velocity_(), True)
+        # time_interval from time_steps
+        elif self._time_steps_ and not self._time_interval_:
+            self.set_time_interval(self._calc_time_from_delta_t_(), True)
+        # time_steps from time_interval
+        elif self._time_interval_ and not self._time_steps_:
+            self.set_time_steps(self._calc_steps_from_delta_t_(), True)
+
+    # delta_x
+    def _delta_x_updated(self):
+        # velocity from delta_t
+        if self._delta_t_ and not self._velocity_:            
+            self.set_velocity(self._calc_velocity_from_deltas(), True)
+        # delta_t from velocity
+        elif self._velocity_ and not self._delta_t_:
+            self.set_delta_t(self._calc_delta_t_from_velocity_(), True)
+        # reference_length from number_of_nodes
+        elif self._number_of_nodes_ and not self._reference_length_:
+            self.set_reference_length(self._calc_ref_length_from_delta_x_(), True)
+        # number_of_nodes from reference_length
+        elif self._reference_length_ and not self._number_of_nodes_:
+            self.set_number_of_nodes(self._calc_num_nodes_from_delta_x_(), True)
+
+    # time_interval
+
+    # time_step
+
+    # reference_length
+
+    # number_of_nodes
 
     """Different variabel calculations.    
         # Values should be defined as floats
@@ -44,80 +183,69 @@ class Freestream(object):
     """
     # velocity
     # Calculate velocity from delta_t and delta_x
-    def _calc_velocity_deltas(self):
-        self._velocity = self.ratio*(self._delta_x/self._delta_t)
+    def _calc_velocity_from_deltas(self):
+        return self._ratio*(self._delta_x_/self._delta_t_)
 
     # Calculate velocity from flow distance and time interval
+    def _calc_velocity_from_distance(self):
+        return self._flow_distance_/self._time_interval_
+
+    # flow_distance
+    # Calculate flow_distance from velocity and time interval
+    def _calc_flow_distance_from_velocity(self):
+        return self._velocity_*self._time_interval_
 
     # delta_t
     # Calculate delta_t from time interval and number of steps
     def _calc_delta_t_from_time_and_steps(self):
-        self._delta_t = self._time_interval/self._time_steps
+        return self._time_interval_/self._time_steps_
 
     # Caluclate delta_t from velocity and delta_x
-    def _calc_delta_t_from_velocity(self):
-        self._delta_t = self._delta_x/self._velocity
+    def _calc_delta_t_from_velocity_(self):
+        return self._ratio*(self._delta_x_/self._velocity_)
 
     # delta_x
     # Calculate delta_x from reference length and number of nodes
+    def _calc_delta_x_from_length(self):
+        return self._reference_length_/self._number_of_nodes_
 
     # Calculate delta_x from velocity and delta_t
+    def _calc_delta_x_from_velocity_(self):
+        return (self._velocity_*self._delta_t_)/self._ratio
     
     # time_interval
     # Calculate time from flow distance and velocity
-    def _calc_time_from_flow_distance(self):
-        self._time_interval = self._flow_distance/self._velocity
+    def _calc_time_from_flow_distance_(self):
+        return self._flow_distance_/self._velocity_
 
-    # Calculate time from delta_t and number of steps
+    # Calculate time interval from delta_t and number of steps
+    def _calc_time_from_delta_t_(self):
+        return self._delta_t_*self._time_steps_
     
     # time_steps
     # Calculate number of steps from delta_t and time interval
+    def _calc_steps_from_delta_t_(self):
+        return self._time_interval_/self._delta_t_
        
     # ref_length
     # Calculate ref_length from delta_x and number of nodes
+    def _calc_ref_length_from_delta_x_(self):
+        return self._delta_x_*self._number_of_nodes_
 
     # number_of_nodes
-    # Calculate number_of_nodes from delta_X and reference length
+    # Calculate number_of_nodes from delta_x and reference length
+    def _calc_num_nodes_from_delta_x_(self):
+        return self._reference_length_/self._delta_x_
 
     """Actual workings.
     """
     # Reset all internal values for recalculation
     def _reset_internal_values(self):
-        self._velocity = None
-        self._flow_distance = None
-        self._delta_t = None
-        self._time_interval = None
-        self._time_steps = None
-        self._delta_x = None
-        self._reference_length = None
-        self._number_of_nodes = None
-
-    # Check if any variable is None
-    def _is_any_None(self):
-        if not self._velocity:
-            return True
-        elif not self._flow_distance:
-            return True
-        elif not self._delta_t:
-            return True
-        elif not self._time_interval:
-            return True
-        elif not self._time_steps:
-            return True
-        elif not self._delta_x:
-            return True
-        elif not self._reference_length:
-            return True
-        elif not self._number_of_nodes:
-            return True
-        else:
-            return False
-
-    # Recurring function that calculates all possible values
-    def _inteli_calc(self):
-        # Make calculations
-
-        # After updating a value the function must be called again
-
-        # If we get to the end then all possible values must have been calculated
-        pass
+        self._velocity_ = self._velocity
+        self._flow_distance_ = self._flow_distance
+        self._delta_t_ = self._delta_t
+        self._time_interval_ = self._time_interval
+        self._time_steps_ = self._time_steps
+        self._delta_x_ = self._delta_x
+        self._reference_length_ = self._reference_length
+        self._number_of_nodes_ = self._number_of_nodes
