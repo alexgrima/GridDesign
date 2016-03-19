@@ -53,10 +53,17 @@ class Freestream(object):
     """
     # velocity
     def set_velocity(self, velocity, internal=False):
-        self._velocity_ = float(velocity)
-        if internal is False:
-            self._velocity = self._velocity_
-        self._velocity_updated()
+        if self._velocity_ != velocity:
+            print("Velocity changed")
+            if velocity:
+                self._velocity_ = float(velocity)
+                print("-Checking velocity dependencies")
+                self._velocity_updated()
+            else:
+                self._velocity_ = None
+            if internal is False:
+                print("Velocity updated by user")
+                self._velocity = self._velocity_
 
     def get_velocity(self):
         if self._velocity_:
@@ -66,10 +73,17 @@ class Freestream(object):
     
     # flow_distance
     def set_flow_distance(self, flow_distance, internal=False):
-        self._flow_distance_ = float(flow_distance)
-        if internal is False:
-            self._flow_distance = self._flow_distance_
-        self._flow_distance_update()
+        if self._flow_distance_ != flow_distance:
+            print("Flow distance changed")
+            if flow_distance:
+                self._flow_distance_ = float(flow_distance)
+                print("-Checking flow distance dependencies")
+                self._flow_distance_update()
+            else:
+                self._flow_distance_ = None
+            if internal is False:
+                print("Flow distance updated by user")
+                self._flow_distance = self._flow_distance_
 
     def get_flow_distance(self):
         if self._flow_distance_:
@@ -79,10 +93,17 @@ class Freestream(object):
 
     # delta_t
     def set_delta_t(self, delta_t, internal=False):
-        self._delta_t_ = float(delta_t)
-        if internal is False:
-            self._delta_t = self._delta_t_
-        self._delta_t_updated()
+        if self._delta_t_ != delta_t:
+            print("Delta t changed")
+            if delta_t:
+                self._delta_t_ = float(delta_t)
+                print("-Checking delta t dependencies")
+                self._delta_t_updated()
+            else:
+                self._delta_t_ = None
+            if internal is False:
+                print("Delta t updated by user")
+                self._delta_t = self._delta_t_
 
     def get_delta_t(self):
         if self._delta_t_:
@@ -92,10 +113,17 @@ class Freestream(object):
 
     # time_interval
     def set_time_interval(self, time_interval, internal=False):
-        self._time_interval_ = float(time_interval)
-        if internal is False:
-            self._time_interval = self._time_interval_
-        self._time_interval_updated()
+        if self._time_interval_ != time_interval:
+            print("Time interval changed")
+            if time_interval:
+                self._time_interval_ = float(time_interval)
+                print("-Checking time interval dependencies")
+                self._time_interval_updated()
+            else:
+                self._time_interval_ = None
+            if internal is False:
+                print("Time interval updated by user")
+                self._time_interval = self._time_interval_
 
     def get_time_interval(self):
         if self._time_interval_:
@@ -105,10 +133,17 @@ class Freestream(object):
 
     # time_steps
     def set_time_steps(self, time_steps, internal=False):
-        self._time_steps_ = float(time_steps)
-        if internal is False:
-            self._time_steps = self._time_steps_
-        self._time_step_updated()
+        if self._time_steps_ != time_steps:
+            print("Time step changed")
+            if time_steps:
+                self._time_steps_ = float(time_steps)
+                print("-Checking time step dependencies")
+                self._time_step_updated()
+            else:
+                self._time_steps_ = None
+            if internal is False:
+                print("Time step updated by user")
+                self._time_steps = self._time_steps_
 
     def get_time_steps(self):
         if self._time_steps_:
@@ -118,10 +153,17 @@ class Freestream(object):
 
     # delta_x
     def set_delta_x(self, delta_x, internal=False):
-        self._delta_x_ = float(delta_x)
-        if internal is False:
-            self._delta_x = self._delta_x_
-        self._delta_x_updated()
+        if self._delta_x_ != delta_x:
+            print("Delta x changed")
+            if delta_x:
+                self._delta_x_ = float(delta_x)
+                print("-Checking delta x dependencies")
+                self._delta_x_updated()
+            else:
+                self._delta_x_ = None
+            if internal is False:
+                print("Delta x updated by user")
+                self._delta_x = self._delta_x_
 
     def get_delta_x(self):
         if self._delta_x_:
@@ -131,10 +173,17 @@ class Freestream(object):
 
     # reference_length
     def set_reference_length(self, reference_length, internal=False):
-        self._reference_length_ = float(reference_length)
-        if internal is False:
-            self._reference_length = self._reference_length_
-        self._reference_length_updated()
+        if self._reference_length_ != reference_length:
+            print("Reference length changed")
+            if reference_length:
+                self._reference_length_ = float(reference_length)
+                print("-Checking reference length dependencies")
+                self._reference_length_updated()
+            else:
+                self._reference_length_ = None
+            if internal is False:
+                print("Reference length updated by user")
+                self._reference_length = self._reference_length_
 
     def get_reference_length(self):
         if self._reference_length_:
@@ -144,10 +193,17 @@ class Freestream(object):
 
     # number_of_nodes
     def set_number_of_nodes(self, number_of_nodes, internal=False):
-        self._number_of_nodes_ = float(number_of_nodes)
-        if internal is False:
-            self._number_of_nodes = self._number_of_nodes_
-        self._number_of_nodes_updated()
+        if self._number_of_nodes_ != number_of_nodes:
+            print("Number of nodes changed")
+            if number_of_nodes:
+                self._number_of_nodes_ = float(number_of_nodes)
+                print("-Checking number of nodes dependencies")
+                self._number_of_nodes_updated()
+            else:
+                self._number_of_nodes_ = None
+            if internal is False:
+                print("Number of nodes updated by user")
+                self._number_of_nodes = self._number_of_nodes_
 
     def get_number_of_nodes(self):
         if self._number_of_nodes_:
@@ -160,7 +216,8 @@ class Freestream(object):
     """
     # velocity
     def _velocity_updated(self):
-        print("Velocity updated")
+        # Maybe just make function that goes through all available 
+        # variabels and trys to calculate each...
         # delta_t from delta_x
         if self._delta_x_ and not self._delta_t_:
             self.set_delta_t(self._calc_delta_t_from_velocity_(), True)
@@ -176,7 +233,6 @@ class Freestream(object):
 
     # flow_distance
     def _flow_distance_update(self):
-        print("Flow distance updated")
         # time_interval from velocity
         if self._velocity_ and not self._time_interval_:
             self.set_time_interval(self._calc_time_from_flow_distance_(), True)
@@ -186,7 +242,6 @@ class Freestream(object):
 
     # delta_t
     def _delta_t_updated(self):
-        print("Delta t updated")
         # velocity from delta_x
         if self._delta_x_ and not self._velocity_:            
             self.set_velocity(self._calc_velocity_from_deltas(), True)
@@ -202,7 +257,6 @@ class Freestream(object):
 
     # delta_x
     def _delta_x_updated(self):
-        print("Delta x updated")
         # velocity from delta_t
         if self._delta_t_ and not self._velocity_:            
             self.set_velocity(self._calc_velocity_from_deltas(), True)
@@ -218,7 +272,6 @@ class Freestream(object):
 
     # time_interval
     def _time_interval_updated(self):
-        print("Time interval updated")
         # delta_t from time_step
         if self._time_steps_ and not self._delta_t_:
             self.set_delta_t(self._calc_delta_t_from_time_and_steps(), True)
@@ -234,7 +287,6 @@ class Freestream(object):
 
     # time_step
     def _time_step_updated(self):
-        print("Time step updated")
         # delta_t from time_interval
         if self._time_interval_ and not self._delta_t_:
             self.set_delta_t(self._calc_delta_t_from_time_and_steps(), True)
@@ -244,7 +296,6 @@ class Freestream(object):
 
     # reference_length
     def _reference_length_updated(self):
-        print("Reference length updated")
         # delta_x from number_of_nodes
         if self._number_of_nodes_ and not self._delta_x_:
             self.set_delta_x(self._calc_delta_x_from_length(), True)
@@ -254,7 +305,6 @@ class Freestream(object):
 
     # number_of_nodes
     def _number_of_nodes_updated(self):
-        print("Number of nodes updated")
         # delta_x from reference_length
         if self._reference_length_ and not self._delta_x_:
             self.set_delta_x(self._calc_delta_x_from_length(), True)
@@ -325,7 +375,9 @@ class Freestream(object):
     """Actual workings.
     """
     # Reset all internal values for recalculation
-    def _reset_internal_values(self):
+    def reset_internal_values(self):
+        # Reset all values
+        print("Resetting internal values")
         self._velocity_ = self._velocity
         self._flow_distance_ = self._flow_distance
         self._delta_t_ = self._delta_t
@@ -334,3 +386,32 @@ class Freestream(object):
         self._delta_x_ = self._delta_x
         self._reference_length_ = self._reference_length
         self._number_of_nodes_ = self._number_of_nodes
+
+        # Checks should be made here to recalculate resultants of
+        # set values
+        print("Recalculating internal values")
+        if self._velocity:
+            print("-Checking velocity dependencies")
+            self._velocity_updated()
+        if self._flow_distance:
+            print("-Checking flow distance dependencies")
+            self._flow_distance_update()
+        if self._delta_t:
+            print("-Checking delta t dependencies")
+            self._delta_t_updated()
+        if self._time_interval:
+            print("-Checking time interval dependencies")
+            self._time_interval_updated()
+        if self._time_steps:
+            print("-Checking time step dependencies")
+            self._time_step_updated()
+        if self._delta_x:
+            print("-Checking delta x dependencies")
+            self._delta_x_updated()
+        if self._reference_length:
+            print("-Checking reference length dependencies")
+            self._reference_length_updated()
+        if self._number_of_nodes:
+            print("-Checking number of nodes dependencies")
+            self._number_of_nodes_updated()
+        # Consider adding flags that may be used by gui later
