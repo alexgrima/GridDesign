@@ -2,8 +2,9 @@ from Freestream import Freestream
 
 # Function that sets the value to the variabel specified
 def set_variabel(freestream, variable, value):
-    # velocity
-    if str(variable).lower() in "v":
+    if str(variable).lower() == "":
+        pass
+    elif str(variable).lower() in "v":
         freestream.set_velocity(float(value))
     elif str(variable).lower() in "fd":
         freestream.set_flow_distance(float(value))
