@@ -4,7 +4,7 @@ class Freestream(object):
     """
 
     # Initialisation of the class
-    def _init_(self):
+    def __init__(self):
         """Initialises the class setting all fields to 0 and
         all internat variabels to None.
         Internal variabel is always updated to field value and used in
@@ -36,7 +36,18 @@ class Freestream(object):
         self._number_of_nodes = None  # Num nodes along reference []
         self._number_of_nodes_ = None # Internal
 
-        return super(Freestream, self)._init_()
+
+    def __str__(self):
+        ret_string = "Current Freestream values\n"
+        ret_string = ret_string +"Velocity: " +str(self.get_velocity()) +"\n"       
+        ret_string = ret_string +"Flow distance: " +str(self.get_flow_distance()) +"\n"  
+        ret_string = ret_string +"Delta t: " +str(self.get_delta_t()) +"\n"  
+        ret_string = ret_string +"Time interval: " +str(self.get_time_interval()) +"\n"  
+        ret_string = ret_string +"Time steps: " +str(self.get_time_steps()) +"\n"  
+        ret_string = ret_string +"Delta x: " +str(self.get_delta_x()) +"\n"  
+        ret_string = ret_string +"Reference length: " +str(self.get_reference_length()) +"\n"  
+        ret_string = ret_string +"Number of nodes: " +str(self.get_number_of_nodes()) +"\n"  
+        return ret_string
 
     """Define all setters and getters to make updating values easier.
     """
@@ -47,8 +58,11 @@ class Freestream(object):
             self._velocity = self._velocity_
         self._velocity_updated()
 
-    def get_velocity_(self):
-        return self._velocity_
+    def get_velocity(self):
+        if self._velocity_:
+            return self._velocity_
+        else:
+            return 0.0
     
     # flow_distance
     def set_flow_distance(self, flow_distance, internal=False):
@@ -58,7 +72,10 @@ class Freestream(object):
         self._flow_distance_update()
 
     def get_flow_distance(self):
-        return self._flow_distance_
+        if self._flow_distance_:
+            return self._flow_distance_
+        else:
+            return 0.0
 
     # delta_t
     def set_delta_t(self, delta_t, internal=False):
@@ -68,7 +85,10 @@ class Freestream(object):
         self._delta_t_updated()
 
     def get_delta_t(self):
-        return self._delta_t_
+        if self._delta_t_:
+            return self._delta_t_
+        else:
+            return 0.0
 
     # time_interval
     def set_time_interval(self, time_interval, internal=False):
@@ -78,7 +98,10 @@ class Freestream(object):
         self._time_interval_updated()
 
     def get_time_interval(self):
-        return self._time_interval_
+        if self._time_interval_:
+            return self._time_interval_
+        else:
+            return 0.0
 
     # time_steps
     def set_time_steps(self, time_steps, internal=False):
@@ -88,7 +111,10 @@ class Freestream(object):
         self._time_step_updated()
 
     def get_time_steps(self):
-        return self._time_steps_
+        if self._time_steps_:
+            return self._time_steps_
+        else:
+            return 0.0
 
     # delta_x
     def set_delta_x(self, delta_x, internal=False):
@@ -98,7 +124,10 @@ class Freestream(object):
         self._delta_x_updated()
 
     def get_delta_x(self):
-        return self._delta_x_
+        if self._delta_x_:
+            return self._delta_x_
+        else:
+            return 0.0
 
     # reference_length
     def set_reference_length(self, reference_length, internal=False):
@@ -108,7 +137,10 @@ class Freestream(object):
         self._reference_length_updated()
 
     def get_reference_length(self):
-        return self._reference_length_
+        if self._reference_length_:
+            return self._reference_length_
+        else:
+            return 0.0
 
     # number_of_nodes
     def set_number_of_nodes(self, number_of_nodes, internal=False):
@@ -118,7 +150,10 @@ class Freestream(object):
         self._number_of_nodes_updated()
 
     def get_number_of_nodes(self):
-        return self._number_of_nodes_
+        if self._number_of_nodes_:
+            return self._number_of_nodes_
+        else:
+            return 0.0
 
     """Functions caled when value is updated to update all possible
     resulting value changes.
