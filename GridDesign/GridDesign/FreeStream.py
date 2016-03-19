@@ -160,6 +160,7 @@ class Freestream(object):
     """
     # velocity
     def _velocity_updated(self):
+        print("Velocity updated")
         # delta_t from delta_x
         if self._delta_x_ and not self._delta_t_:
             self.set_delta_t(self._calc_delta_t_from_velocity_(), True)
@@ -175,6 +176,7 @@ class Freestream(object):
 
     # flow_distance
     def _flow_distance_update(self):
+        print("Flow distance updated")
         # time_interval from velocity
         if self._velocity_ and not self._time_interval_:
             self.set_time_interval(self._calc_time_from_flow_distance_(), True)
@@ -184,6 +186,7 @@ class Freestream(object):
 
     # delta_t
     def _delta_t_updated(self):
+        print("Delta t updated")
         # velocity from delta_x
         if self._delta_x_ and not self._velocity_:            
             self.set_velocity(self._calc_velocity_from_deltas(), True)
@@ -199,6 +202,7 @@ class Freestream(object):
 
     # delta_x
     def _delta_x_updated(self):
+        print("Delta x updated")
         # velocity from delta_t
         if self._delta_t_ and not self._velocity_:            
             self.set_velocity(self._calc_velocity_from_deltas(), True)
@@ -214,6 +218,7 @@ class Freestream(object):
 
     # time_interval
     def _time_interval_updated(self):
+        print("Time interval updated")
         # delta_t from time_step
         if self._time_steps_ and not self._delta_t_:
             self.set_delta_t(self._calc_delta_t_from_time_and_steps(), True)
@@ -229,6 +234,7 @@ class Freestream(object):
 
     # time_step
     def _time_step_updated(self):
+        print("Time step updated")
         # delta_t from time_interval
         if self._time_interval_ and not self._delta_t_:
             self.set_delta_t(self._calc_delta_t_from_time_and_steps(), True)
@@ -238,6 +244,7 @@ class Freestream(object):
 
     # reference_length
     def _reference_length_updated(self):
+        print("Reference length updated")
         # delta_x from number_of_nodes
         if self._number_of_nodes_ and not self._delta_x_:
             self.set_delta_x(self._calc_delta_x_from_length(), True)
@@ -247,6 +254,7 @@ class Freestream(object):
 
     # number_of_nodes
     def _number_of_nodes_updated(self):
+        print("Number of nodes updated")
         # delta_x from reference_length
         if self._reference_length_ and not self._delta_x_:
             self.set_delta_x(self._calc_delta_x_from_length(), True)
