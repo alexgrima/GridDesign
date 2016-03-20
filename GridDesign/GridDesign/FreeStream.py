@@ -11,7 +11,7 @@ class Freestream(object):
         calculations. If field value is None the internal value can 
         still recieve a value through calculations.
         """
-        # _ratio setting
+        # ratio setting
         self._ratio = 0.9            # _ratio value for V*t/x < 1
 
         # Field variabels
@@ -59,17 +59,21 @@ class Freestream(object):
                 self._velocity_ = float(velocity)
                 print("-Checking velocity dependencies")
                 self._velocity_updated()
-            else:
-                self._velocity_ = None
             if internal is False:
                 print("Velocity updated by user")
-                self._velocity = self._velocity_
+                self._velocity = velocity
 
     def get_velocity(self):
         if self._velocity_:
             return self._velocity_
         else:
             return 0.0
+
+    def is_set_velocity(self):
+        if self._velocity:
+            return True
+        else:
+            return False
     
     # flow_distance
     def set_flow_distance(self, flow_distance, internal=False):
@@ -79,17 +83,21 @@ class Freestream(object):
                 self._flow_distance_ = float(flow_distance)
                 print("-Checking flow distance dependencies")
                 self._flow_distance_update()
-            else:
-                self._flow_distance_ = None
             if internal is False:
                 print("Flow distance updated by user")
-                self._flow_distance = self._flow_distance_
+                self._flow_distance = flow_distance
 
     def get_flow_distance(self):
         if self._flow_distance_:
             return self._flow_distance_
         else:
             return 0.0
+
+    def is_set_flow_distance(self):
+        if self._flow_distance:
+            return True
+        else:
+            return False
 
     # delta_t
     def set_delta_t(self, delta_t, internal=False):
@@ -99,17 +107,21 @@ class Freestream(object):
                 self._delta_t_ = float(delta_t)
                 print("-Checking delta t dependencies")
                 self._delta_t_updated()
-            else:
-                self._delta_t_ = None
             if internal is False:
                 print("Delta t updated by user")
-                self._delta_t = self._delta_t_
+                self._delta_t = delta_t
 
     def get_delta_t(self):
         if self._delta_t_:
             return self._delta_t_
         else:
             return 0.0
+
+    def is_set_delta_t(self):
+        if self._delta_t:
+            return True
+        else:
+            return False
 
     # time_interval
     def set_time_interval(self, time_interval, internal=False):
@@ -119,17 +131,21 @@ class Freestream(object):
                 self._time_interval_ = float(time_interval)
                 print("-Checking time interval dependencies")
                 self._time_interval_updated()
-            else:
-                self._time_interval_ = None
             if internal is False:
                 print("Time interval updated by user")
-                self._time_interval = self._time_interval_
+                self._time_interval = time_interval
 
     def get_time_interval(self):
         if self._time_interval_:
             return self._time_interval_
         else:
             return 0.0
+
+    def is_set_time_interval(self):
+        if self._time_interval:
+            return True
+        else:
+            return False
 
     # time_steps
     def set_time_steps(self, time_steps, internal=False):
@@ -139,17 +155,21 @@ class Freestream(object):
                 self._time_steps_ = float(time_steps)
                 print("-Checking time step dependencies")
                 self._time_step_updated()
-            else:
-                self._time_steps_ = None
             if internal is False:
                 print("Time step updated by user")
-                self._time_steps = self._time_steps_
+                self._time_steps = time_steps
 
     def get_time_steps(self):
         if self._time_steps_:
             return self._time_steps_
         else:
             return 0.0
+
+    def is_set_time_steps(self):
+        if self._time_steps:
+            return True
+        else:
+            return False
 
     # delta_x
     def set_delta_x(self, delta_x, internal=False):
@@ -159,17 +179,21 @@ class Freestream(object):
                 self._delta_x_ = float(delta_x)
                 print("-Checking delta x dependencies")
                 self._delta_x_updated()
-            else:
-                self._delta_x_ = None
             if internal is False:
                 print("Delta x updated by user")
-                self._delta_x = self._delta_x_
+                self._delta_x = delta_x
 
     def get_delta_x(self):
         if self._delta_x_:
             return self._delta_x_
         else:
             return 0.0
+
+    def is_set_delta_x(self):
+        if self._delta_x:
+            return True
+        else:
+            return False
 
     # reference_length
     def set_reference_length(self, reference_length, internal=False):
@@ -179,17 +203,21 @@ class Freestream(object):
                 self._reference_length_ = float(reference_length)
                 print("-Checking reference length dependencies")
                 self._reference_length_updated()
-            else:
-                self._reference_length_ = None
             if internal is False:
                 print("Reference length updated by user")
-                self._reference_length = self._reference_length_
+                self._reference_length = reference_length
 
     def get_reference_length(self):
         if self._reference_length_:
             return self._reference_length_
         else:
             return 0.0
+
+    def is_set_reference_length(self):
+        if self._reference_length:
+            return True
+        else:
+            return False
 
     # number_of_nodes
     def set_number_of_nodes(self, number_of_nodes, internal=False):
@@ -199,17 +227,21 @@ class Freestream(object):
                 self._number_of_nodes_ = float(number_of_nodes)
                 print("-Checking number of nodes dependencies")
                 self._number_of_nodes_updated()
-            else:
-                self._number_of_nodes_ = None
             if internal is False:
                 print("Number of nodes updated by user")
-                self._number_of_nodes = self._number_of_nodes_
+                self._number_of_nodes = number_of_nodes
 
     def get_number_of_nodes(self):
         if self._number_of_nodes_:
             return self._number_of_nodes_
         else:
             return 0.0
+
+    def is_set_number_of_nodes(self):
+        if self._number_of_nodes:
+            return True
+        else:
+            return False
 
     """Functions caled when value is updated to update all possible
     resulting value changes.
@@ -374,6 +406,19 @@ class Freestream(object):
 
     """Actual workings.
     """
+    # Reset values
+    def reset_values(self):
+        print("Resetting values")
+        self.set_velocity(None)
+        self.set_flow_distance(None)
+        self.set_delta_t(None)
+        self.set_delta_x(None)
+        self.set_time_interval(None)
+        self.set_time_steps(None)
+        self.set_reference_length(None)
+        self.set_number_of_nodes(None)
+        self.reset_internal_values()
+
     # Reset all internal values for recalculation
     def reset_internal_values(self):
         # Reset all values
@@ -415,3 +460,4 @@ class Freestream(object):
             print("-Checking number of nodes dependencies")
             self._number_of_nodes_updated()
         # Consider adding flags that may be used by gui later
+        print("Completed value updates")
