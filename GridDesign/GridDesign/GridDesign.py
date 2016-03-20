@@ -1,4 +1,6 @@
 from Freestream import Freestream
+from MainFrame import MainFrame
+import wx
 
 # Function that sets the value to the variabel specified
 def set_variabel(freestream, variable, value):
@@ -32,6 +34,14 @@ def set_variabel(freestream, variable, value):
 def main():
     # Generate instance of freestream calculator
     freestream_calc = Freestream()
+
+    # Create gui object
+    app = wx.App(redirect=False)
+    main_window = MainFrame(app, -1, "Grid design assitant", 
+                            size=(350, 200), 
+                            style = wx.DEFAULT_FRAME_STYLE)
+    main_window.Show(True)
+    app.MainLoop()
 
     # Inifinate loop
     while True:
