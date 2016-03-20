@@ -22,10 +22,22 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ControlPanel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Freestream.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FreestreamPanel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GridDesign.py" />
+    <Compile Include="MainFrame.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ResultPanel.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
