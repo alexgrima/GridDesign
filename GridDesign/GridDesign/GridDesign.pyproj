@@ -25,6 +25,7 @@
     <Compile Include="ControlPanel.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Rotor.py" />
     <Compile Include="Freestream.py">
       <SubType>Code</SubType>
     </Compile>
